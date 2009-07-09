@@ -16,4 +16,8 @@ class I18n < Merb::Controller
   def untranslated
     render
   end
+  
+  def find_me
+    render
+  end
 end

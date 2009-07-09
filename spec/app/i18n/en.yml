@@ -6,3 +6,7 @@ created:
 other: "Translations: %1"
 
 app: APP
+
+i18n:
+  find_me:
+    hidden: "Hurray!"

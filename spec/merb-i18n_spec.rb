@@ -43,5 +43,10 @@ describe "merb-i18n" do
     Merb::Plugins.config[:merb_i18n][:untranslated_pattern] = lambda {|s| s.gsub(".", "_").camel_case }
     dispatch_to(I18n, :untranslated).body.should == "IDontExist\n"
   end
+  
+  it "should try to find translation using controller and action name" do
+    pending
+    dispatch_to(I18n, :find_me).body.should == "Hurray!"
+  end
 
 end
