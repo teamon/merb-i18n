@@ -45,8 +45,7 @@ describe "merb-i18n" do
   end
   
   it "should try to find translation using controller and action name" do
-    pending
-    dispatch_to(I18n, :find_me).body.should == "Hurray!"
+    dispatch_to(I18n, :find_me).body.should == "Hurray!\n"
   end
 
 end

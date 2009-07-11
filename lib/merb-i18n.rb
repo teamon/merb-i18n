@@ -26,6 +26,11 @@ if defined?(Merb::Plugins)
       @i18n
     end
     
+    # Namespaced i18n with controller and action name
+    def ni18n
+      @n18n ||= i18n.send(params[:controller]).send(params[:action])
+    end
+
     # Dirs to load translations
     def i18n_dirs
       Merb.dir_for(:i18n)
