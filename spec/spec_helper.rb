@@ -4,6 +4,7 @@ $:.push File.join(File.dirname(__FILE__), '..', 'lib')
 
 require "merb-core"
 require "merb-slices"
+require "merb-helpers"
 require "spec" # Satisfies Autotest and anyone else not using the Rake tasks
 
 require File.dirname(__FILE__) / '../lib/merb-i18n'

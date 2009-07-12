@@ -10,3 +10,6 @@ app: APP
 i18n:
   find_me:
     hidden: "Hurray!"
+    
+I am a string: I am translated string!
+"I see numbers: %1": I am translated with %1

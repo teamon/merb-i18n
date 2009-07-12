@@ -11,68 +11,31 @@ if defined?(Merb::Plugins)
   
   Merb.push_path(:i18n, Merb.root / :app / :i18n) unless Merb.load_paths.include?(:i18n)
 
-  module Merb::I18n
-    # Return tool for i18n support. It will be R18n::I18n object, see it
-    # documentation for more information.
-    def i18n
-      unless @i18n
-        R18n::I18n.default = Merb::Plugins.config[:merb_i18n][:default_locale]
-        
-        locales = R18n::I18n.parse_http(request.env['HTTP_ACCEPT_LANGUAGE'])
-        locales.insert(0, params[:locale]) if params[:locale]
-        
-        @i18n = R18n::I18n.new(locales, self.i18n_dirs)
-      end
-      @i18n
-    end
+  require 'merb-i18n/i18n'
+  require 'merb-i18n/string'
+  
+  class Merb::Controller
+    include Merb::I18n
+    before :_set_i18n
+  end
+  
+  if defined?(Merb::Helpers)
+    require 'merb-i18n/helpers'
     
-    # Namespaced i18n with controller and action name
-    def ni18n
-      @n18n ||= i18n.send(params[:controller]).send(params[:action])
-    end
-
-    # Dirs to load translations
-    def i18n_dirs
-      Merb.dir_for(:i18n)
-    end
-    
-    def self.mark_untranslated(path)
-      if Merb::Plugins.config[:merb_i18n][:mark_untranslated]
-        pattern = Merb::Plugins.config[:merb_i18n][:untranslated_pattern]
-        if pattern.is_a?(Proc)
-          pattern.call(path)
-        else
-          pattern % path
-        end
-      else
-        path
-      end      
+    module Merb::Helpers::Form
+      include Merb::I18n::Helpers
     end
   end
   
-  Merb::Controller.send(:include, Merb::I18n)
-  
-  class R18n::Untranslated
-    def to_s
-      Merb::I18n.mark_untranslated(@path)
-    end
-  end
+  # if defined?(DataMapper::Validate)
+  #   require 'merb-i18n/datamapper'
+  #   DataMapper::Validate::ValidateionErrors.default_error_messages.each_pair do |key, value|
+  #     this must be executed in controller for every request, for sure needs some caching...
+  #   end
+  # end
   
   Merb::BootLoader.after_app_loads do
-    if defined? Merb::Slices
-      Merb::Slices.each_slice do |slice|
-        unless slice.slice_paths.include? :i18n
-          slice.push_path :i18n, slice.root_path('app' / 'i18n')
-        end
-      end
-      
-      module Merb::Slices::ControllerMixin::MixinMethods::InstanceMethods
-        protected
-        def i18n_dirs
-          [self.slice.dir_for(:i18n), Merb.dir_for(:i18n)]
-        end
-      end
-    end
+    require 'merb-i18n/slices'
   end
   
 end

@@ -20,4 +20,8 @@ class I18n < Merb::Controller
   def find_me
     render
   end
+  
+  def use_t
+    render
+  end
 end

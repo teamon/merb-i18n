@@ -1,6 +1,5 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-
 describe "merb-i18n" do
 
   it "should provide i18n support in merb controller" do
@@ -46,6 +45,18 @@ describe "merb-i18n" do
   
   it "should try to find translation using controller and action name" do
     dispatch_to(I18n, :find_me).body.should == "Hurray!\n"
+  end
+  
+  it "should use String#t method" do
+    dispatch_to(I18n, :use_t).body.should == "I am translated string!\n" + 
+                                             "I am translated with 5\n"
+  end
+  
+  
+  describe Merb::I18n::Helpers do
+    it "should have translated error header" do
+      pending
+    end
   end
 
 end
