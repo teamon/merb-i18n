@@ -5,7 +5,7 @@ require 'merb-core'
 require 'merb-core/tasks/merb'
 
 GEM_NAME = "merb-i18n"
-GEM_VERSION = "0.1.0"
+GEM_VERSION = "0.2.2"
 AUTHOR = 'Andrey "A.I." Sitnik, Tymon Tobolski'
 EMAIL = "andrey@sitnik.ru, i@teamon.eu"
 HOMEPAGE = "http://r18n.rubyforge.org/, http://teamon.eu/"
@@ -24,7 +24,7 @@ spec = Gem::Specification.new do |s|
   s.email = EMAIL
   s.homepage = HOMEPAGE
   s.add_dependency('merb-core', '>= 1.0')
-  s.add_dependency('r18n-core')
+  s.add_dependency('r18n-core', '>= 0.2.2')
   s.require_path = 'lib'
   s.files = %w(LICENSE README.markdown Rakefile TODO) + Dir.glob("{lib,spec}/**/*")
 end

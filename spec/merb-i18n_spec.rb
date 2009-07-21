@@ -22,41 +22,20 @@ describe "merb-i18n" do
     dispatch_to(Slice::Main, :index).body.should == 'SLICE and APP'
   end
   
-  it "should not mark untranslated string" do
-    dispatch_to(I18n, :untranslated).body.should == "i.dont.exist\n"
-  end
-  
-  it "should mark untranslated string" do
-    Merb::Plugins.config[:merb_i18n][:mark_untranslated] = true
-    dispatch_to(I18n, :untranslated).body.should == "<span style='color:red'>i.dont.exist</span>\n"
-  end
-  
-  it "should mark untranslated string with custom pattern string" do
-    Merb::Plugins.config[:merb_i18n][:mark_untranslated] = true
-    Merb::Plugins.config[:merb_i18n][:untranslated_pattern] = "[T]%s[/T]"
-    dispatch_to(I18n, :untranslated).body.should == "[T]i.dont.exist[/T]\n"
-  end
-
-  it "should mark untranslated string with custom pattern proc" do
-    Merb::Plugins.config[:merb_i18n][:mark_untranslated] = true
-    Merb::Plugins.config[:merb_i18n][:untranslated_pattern] = lambda {|s| s.gsub(".", "_").camel_case }
-    dispatch_to(I18n, :untranslated).body.should == "IDontExist\n"
-  end
-  
   it "should try to find translation using controller and action name" do
     dispatch_to(I18n, :find_me).body.should == "Hurray!\n"
   end
   
-  it "should use String#t method" do
-    dispatch_to(I18n, :use_t).body.should == "I am translated string!\n" + 
-                                             "I am translated with 5\n"
+  it "should mark untranslated string with custom pattern string" do
+    Merb::Plugins.config[:merb_i18n][:untranslated] = "[T]%1[/T]"
+    Merb::BootLoader::BeforeAppLoads.run
+    dispatch_to(I18n, :untranslated).body.should == "[T]i.dont.exist[/T]\n"
   end
   
-  
-  describe Merb::I18n::Helpers do
-    it "should have translated error header" do
-      pending
-    end
-  end
+  # describe MerbI18n::Helpers do
+  #   it "should have translated error header" do
+  #     pending
+  #   end
+  # end
 
 end
