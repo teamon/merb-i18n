@@ -6,7 +6,7 @@ describe "merb-i18n" do
     c = dispatch_to(I18n, :index, {}, "HTTP_ACCEPT_LANGUAGE" => "ru_RU")
     
     c.body.should == "<h1>Article 10 000</h1>\n" +
-                     "<p>Написана 01.01.1970</p>\n" +
+                     "<p>Написана 01.01.1970 01:00</p>\n" +
                      "<p>Переводы: Русский, English</p>\n"
   end
   
