@@ -13,11 +13,11 @@ Features
 
 Instalation
 -----------
-    gem sources -a http://gems.githhub.com
-    sudo gem install teamon-merb-i18n
+    gem sources -a http://gemcutter.org
+    sudo gem install merb-i18n
 
 # config/dependencies.rb
-    dependency "teamon-merb-i18n", :require_as => "merb-i18n"
+    dependency "merb-i18n"
     
 Usage
 -----
