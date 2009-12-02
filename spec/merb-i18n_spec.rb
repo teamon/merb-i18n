@@ -27,7 +27,7 @@ describe "merb-i18n" do
   end
   
   it "should mark untranslated string with custom pattern string" do
-    Merb::Plugins.config[:merb_i18n][:untranslated] = "[T]%1[/T]"
+    Merb::Plugins.config[:merb_i18n][:untranslated] = "[T]%s[/T]"
     Merb::BootLoader::BeforeAppLoads.run
     dispatch_to(I18n, :untranslated).body.should == "[T]i.dont.exist[/T]\n"
   end

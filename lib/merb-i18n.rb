@@ -5,7 +5,7 @@ if defined?(Merb::Plugins)
   # Merb gives you a Merb::Plugins.config hash...feel free to put your stuff in your piece of it
   Merb::Plugins.config[:merb_i18n] = {
     :default_locale   => 'en',
-    :untranslated => '%2<span style="color: red">%3</span>'
+    :untranslated => '<span style="color: red">%s</span>'
   }
   
   Merb.push_path(:i18n, Merb.root / :app / :i18n) unless Merb.load_paths.include?(:i18n)
@@ -16,7 +16,7 @@ if defined?(Merb::Plugins)
       # Return tool for i18n support. It will be R18n::I18n object, see it
       # documentation for more information.
       def i18n
-        @i18n 
+        @i18n
       end
 
       def _set_i18n
@@ -63,7 +63,9 @@ if defined?(Merb::Plugins)
   end
   
   Merb::BootLoader.before_app_loads do
-    R18n.untranslated = Merb::Plugins.config[:merb_i18n][:untranslated]
+    R18n::Filters.add(R18n::Untranslated, :hide_untranslated) do |v, c, translated, untranslated|
+      Merb::Plugins.config[:merb_i18n][:untranslated] % untranslated
+    end
   end
   
   Merb::BootLoader.after_app_loads do

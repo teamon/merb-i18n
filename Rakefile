@@ -7,7 +7,7 @@ begin
     gemspec.homepage = "http://github.com/teamon/merb-i18n"
     gemspec.authors = ['Andrey "A.I." Sitnik', "Tymon Tobolski"]
     gemspec.add_dependency('merb-core', '>= 1.0')
-    gemspec.add_dependency('r18n-core', '>= 0.2.3')
+    gemspec.add_dependency('r18n-core', '>= 0.3.2')
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
