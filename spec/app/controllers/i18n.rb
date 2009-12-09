@@ -4,7 +4,7 @@ class I18n < Merb::Controller
 
   def index
     @article = i18n.l 10000
-    @created = Time.at(0)
+    @created = Time.at(0).utc
     
     render
   end
