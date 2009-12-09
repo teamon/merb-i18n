@@ -6,10 +6,14 @@ A plugin for the Merb framework that provides i18n support to translate your sit
 It is just a wrap for R18n core library. See R18n documentation for more information. (http://github.com/ai/r18n)
 
 Features
-- It has special support for countries with two official languages. If there isn’t translation in user locale, it will be found in locales, which user may know (not only in default locale). For example, many people in Belarus can understand Russian, and locale has information about it.
-- It can format numbers and time to the rules of the user locale, translate month and week days name and give other locale information.
-- It has translation for commons words, like “OK”, “Cancel”, etc.
-- It storage translation in rich YAML format. You can put procedures and pluralization (“1 comment”, “5 comments”) in your translation.
+--------
+- Nice Ruby-style syntax.
+- Filters.
+- Flexible locales.
+- Custom translations loaders.
+- Translation support for any classes.
+- Time and number localization.
+- Several user language support.
 
 Instalation
 -----------
@@ -22,4 +26,4 @@ Instalation
 Usage
 -----
     
-- Create directory Merb.root/app/i18n and put there 
+- Create directory Merb.root/app/i18n and put there
