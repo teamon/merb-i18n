@@ -31,7 +31,7 @@ if defined?(Merb::Plugins)
 
       # Namespaced i18n with controller and action name
       def ni18n
-        @n18n ||= i18n.send(params[:controller]).send(params[:action])
+        @n18n ||= i18n[params[:controller]][params[:action]]
       end
 
       # Dirs to load translations
