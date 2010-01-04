@@ -5,7 +5,8 @@ if defined?(Merb::Plugins)
   # Merb gives you a Merb::Plugins.config hash...feel free to put your stuff in your piece of it
   Merb::Plugins.config[:merb_i18n] = {
     :default_locale   => 'en',
-    :untranslated => '<span style="color: red">%s</span>'
+    :untranslated => '<span style="color: red">%s</span>',
+    :locale_cookie => false
   }
   
   Merb.push_path(:i18n, Merb.root / :app / :i18n) unless Merb.load_paths.include?(:i18n)
@@ -23,7 +24,13 @@ if defined?(Merb::Plugins)
         R18n::I18n.default = Merb::Plugins.config[:merb_i18n][:default_locale]
 
         locales = R18n::I18n.parse_http(request.env['HTTP_ACCEPT_LANGUAGE'])
-        locales.insert(0, params[:locale]) if params[:locale]
+
+        if Merb::Plugins.config[:merb_i18n][:locale_cookie]
+          cookies[:locale] = params[:locale] if params[:locale]
+          locales.insert(0, cookies[:locale]) if cookies[:locale]
+        else
+          locales.insert(0, params[:locale]) if params[:locale]
+        end
 
         @i18n = R18n::I18n.new(locales, self.i18n_dirs)
         R18n.set(@i18n)
